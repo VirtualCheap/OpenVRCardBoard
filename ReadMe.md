@@ -3,7 +3,7 @@
 ```
 git clone --recursive git@github.com:VirtualCheap/OpenVRCardBoard.git
 ```
-Or if you cloned it with out the `recursive` argument
+Or if you already cloned it with out the `recursive` argument
 ```
 git submodule update --init --recursive --remote
 ```

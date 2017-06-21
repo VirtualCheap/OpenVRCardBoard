@@ -1,0 +1,16 @@
+{
+	"driver_VirtualCheap" : {
+		"enable": true,
+		"id": "Null Driver",
+		"serialNumber": "Null 4711",
+		"modelNumber": "Null Model Number",
+		"windowX": 100,
+		"windowY": 100,
+		"windowWidth": 1920,
+		"windowHeight": 1080,
+		"renderWidth": 1344,
+		"renderHeight": 1512,
+		"secondsFromVsyncToPhotons": 0.1,
+		"displayFrequency": 90
+	}
+}

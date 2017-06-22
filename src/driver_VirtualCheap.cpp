@@ -51,7 +51,7 @@ inline void HmdMatrix_SetIdentity( HmdMatrix34_t *pMatrix )
 
 
 // keys for use with the settings API
-static const char * const k_pch_Sample_Section = "driver_parkervr";
+static const char * const k_pch_Sample_Section = "driver_VirtualCheap";
 static const char * const k_pch_Sample_SerialNumber_String = "serialNumber";
 static const char * const k_pch_Sample_ModelNumber_String = "modelNumber";
 static const char * const k_pch_Sample_WindowX_Int32 = "windowX";

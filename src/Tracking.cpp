@@ -12,7 +12,8 @@ using namespace vr;
 
 class Tracking{
 public:
-	DriverPose_t Pose() 
+        
+	static DriverPose_t Pose() 
 	{
 		DriverPose_t pose = { 0 };
 		pose.poseIsValid = true;
@@ -24,7 +25,7 @@ public:
 
 		return pose;
 	}
-void updatepose(){ 
-    IVRServerDriverHost::TrackedDevicePoseUpdated(CSampleDeviceDriver::GetID(), this->Pose(), (uint32_t) sizeof(vr::DriverPose_t) );
+    void updatepose(){ 
+    vr::VRServerDriverHost()->TrackedDevicePoseUpdated(CSampleDeviceDriver::GetID(), this->Pose(), (uint32_t) sizeof(vr::DriverPose_t) );
 }
 };

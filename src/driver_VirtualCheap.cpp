@@ -1,6 +1,6 @@
 #include <openvr_driver.h>
 #include "driverlog.h"
-
+#include "Tracking.h"
 #include <cstring>
 #include <vector>
 #include <thread>
@@ -171,13 +171,13 @@ public:
         m_flSecondsFromVsyncToPhotons = vr::VRSettings()->GetFloat( k_pch_Sample_Section, k_pch_Sample_SecondsFromVsyncToPhotons_Float );
         m_flDisplayFrequency = vr::VRSettings()->GetFloat( k_pch_Sample_Section, k_pch_Sample_DisplayFrequency_Float );
 
-        DriverLog( "driver_parkervr: Serial Number: %s\n", m_sSerialNumber.c_str() );
-        DriverLog( "driver_parkervr: Model Number: %s\n", m_sModelNumber.c_str() );
-        DriverLog( "driver_parkervr: Window: %d %d %d %d\n", m_nWindowX, m_nWindowY, m_nWindowWidth, m_nWindowHeight );
-        DriverLog( "driver_parkervr: Render Target: %d %d\n", m_nRenderWidth, m_nRenderHeight );
-        DriverLog( "driver_parkervr: Seconds from Vsync to Photons: %f\n", m_flSecondsFromVsyncToPhotons );
-        DriverLog( "driver_parkervr: Display Frequency: %f\n", m_flDisplayFrequency );
-        DriverLog( "driver_parkervr: IPD: %f\n", m_flIPD );
+        DriverLog( "driver_VirtualCheap: Serial Number: %s\n", m_sSerialNumber.c_str() );
+        DriverLog( "driver_VirtualCheap: Model Number: %s\n", m_sModelNumber.c_str() );
+        DriverLog( "driver_VirtualCheap: Window: %d %d %d %d\n", m_nWindowX, m_nWindowY, m_nWindowWidth, m_nWindowHeight );
+        DriverLog( "driver_VirtualCheap: Render Target: %d %d\n", m_nRenderWidth, m_nRenderHeight );
+        DriverLog( "driver_VirtualCheap: Seconds from Vsync to Photons: %f\n", m_flSecondsFromVsyncToPhotons );
+        DriverLog( "driver_VirtualCheap: Display Frequency: %f\n", m_flDisplayFrequency );
+        DriverLog( "driver_VirtualCheap: IPD: %f\n", m_flIPD );
 	}
 
 	virtual ~CSampleDeviceDriver()
@@ -316,8 +316,8 @@ public:
 		pose.result = TrackingResult_Running_OK;
 		pose.deviceIsConnected = true;
 
-		pose.qWorldFromDriverRotation = HmdQuaternion_Init( 1, 0, 0, 0 );
-		pose.qDriverFromHeadRotation = HmdQuaternion_Init( 1, 0, 0, 0 );
+		pose.qWorldFromDriverRotation = HmdQuaternion_Init( 1, 50, 50, 50);
+		pose.qDriverFromHeadRotation = HmdQuaternion_Init( 50, 50, 50, 50 );
 		
 
 		return pose;
@@ -329,13 +329,17 @@ public:
 		// In a real driver, this should happen from some pose tracking thread.
 		// The RunFrame interval is unspecified and can be very irregular if some other
 		// driver blocks it for some periodic task.
-		if ( m_unObjectId != vr::k_unTrackedDeviceIndexInvalid )
-		{
-			vr::VRServerDriverHost()->TrackedDevicePoseUpdated( m_unObjectId, GetPose(), sizeof( DriverPose_t ) );
-		}
+		//if ( m_unObjectId != vr::k_unTrackedDeviceIndexInvalid )
+		//{
+                //	vr::VRServerDriverHost()->TrackedDevicePoseUpdated( m_unObjectId, GetPose(), sizeof( DriverPose_t ) );
+		//}
 	}
 
 	std::string GetSerialNumber() const { return m_sSerialNumber; }
+        
+        vr::TrackedDeviceIndex_t GetID(){
+            return m_unObjectId;
+        }
 
 private:
 	vr::TrackedDeviceIndex_t m_unObjectId;

@@ -10,6 +10,8 @@ set(SOURCE_FILES
         src/driver_VirtualCheap.cpp
         src/driverlog.cpp
         src/driverlog.h
+        src/Tracking.cpp
+        src/Tracking.h
         )
 
 add_definitions(-DDRIVER_SAMPLE_EXPORTS)

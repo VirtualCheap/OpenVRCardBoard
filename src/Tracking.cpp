@@ -1,7 +1,6 @@
 #include <openvr_driver.h>
 #include "driver_VirtualCheap.h"
 #include "driverlog.h"
-#include "Tracking.h"
 #include <iostream>
 #include <cstring>
 #include <vector>
@@ -20,12 +19,12 @@ public:
 		pose.result = TrackingResult_Running_OK;
 		pose.deviceIsConnected = true;
 
-		pose.qWorldFromDriverRotation = HmdQuaternion_Init( 1, 50, 50, 50);
-		pose.qDriverFromHeadRotation = HmdQuaternion_Init( 50, 50, 50, 50 );
+		pose.qWorldFromDriverRotation = HmdQuaternion_Init( 1, 0, 0, 0);
+		pose.qDriverFromHeadRotation = HmdQuaternion_Init( 1, 0, 0, 0);
 
 		return pose;
 	}
-    void updatepose(){ 
-    vr::VRServerDriverHost()->TrackedDevicePoseUpdated(CSampleDeviceDriver::GetID(), this->Pose(), (uint32_t) sizeof(vr::DriverPose_t) );
-}
+    void updatepose(vr::TrackedDeviceIndex_t ID, DriverPose_t pose1, uint32_t size){ 
+     vr::VRServerDriverHost()->TrackedDevicePoseUpdated(ID, pose1, size);
+    }
 };

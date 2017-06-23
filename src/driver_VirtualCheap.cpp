@@ -329,10 +329,14 @@ public:
 		// In a real driver, this should happen from some pose tracking thread.
 		// The RunFrame interval is unspecified and can be very irregular if some other
 		// driver blocks it for some periodic task.
-		//if ( m_unObjectId != vr::k_unTrackedDeviceIndexInvalid )
-		//{
-                //	vr::VRServerDriverHost()->TrackedDevicePoseUpdated( m_unObjectId, GetPose(), sizeof( DriverPose_t ) );
-		//}
+		if ( m_unObjectId != vr::k_unTrackedDeviceIndexInvalid )
+		{
+                    Tracking::updatepose(m_unObjectId, GetPose(), sizeof( DriverPose_t ));
+                    //vr::VRServerDriverHost()->TrackedDevicePoseUpdated(CSampleDeviceDriver::GetID(), Tracking::Pose(), (uint32_t) sizeof(vr::DriverPose_t) );
+
+                    //vr::VRServerDriverHost()->TrackedDevicePoseUpdated( m_unObjectId, GetPose(), sizeof( DriverPose_t ) );
+		}
+            
 	}
 
 	std::string GetSerialNumber() const { return m_sSerialNumber; }

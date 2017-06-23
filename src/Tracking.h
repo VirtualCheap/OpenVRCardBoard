@@ -14,6 +14,21 @@
 #ifndef TRACKING_H
 #define TRACKING_H
 
+#include <iostream>
+#include <cstring>
+#include <vector>
+#include <thread>
+#include <chrono>
+#include <stddef.h>
+#include <openvr_driver.h>
+
+using namespace vr;
+
+class Tracking{
+public:
+	static DriverPose_t Pose();
+        static void updatepose(vr::TrackedDeviceIndex_t ID, DriverPose_t pose1, uint32_t size);
+};
 
 #endif /* TRACKING_H */
 

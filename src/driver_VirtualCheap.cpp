@@ -8,6 +8,7 @@
 
 #include "watchdogdriver_virtualcheap.h"
 #include "devicedriver_virtualcheap.h"
+#include "serverdriver_virtualcheap.h"
 
 #if defined( _WINDOWS )
 #include <Windows.h>
@@ -43,64 +44,7 @@ inline void HmdMatrix_SetIdentity( HmdMatrix34_t *pMatrix )
 }
 
 WatchdogDriver_VirtualCheap g_watchdogDriverNull;
-
-
-
-
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
-class ServerDriver_VirtualCheap: public IServerTrackedDeviceProvider
-{
-public:
-    ServerDriver_VirtualCheap()
-		: m_pNullHmdLatest( NULL )
-		, m_bEnableNullDriver( false )
-	{
-	}
-
-	virtual EVRInitError Init( vr::IVRDriverContext *pDriverContext ) ;
-	virtual void Cleanup() ;
-	virtual const char * const *GetInterfaceVersions() { return vr::k_InterfaceVersions; }
-	virtual void RunFrame() ;
-	virtual bool ShouldBlockStandbyMode()  { return false; }
-	virtual void EnterStandby()  {}
-	virtual void LeaveStandby()  {}
-
-private:
-    DeviceDriver_VirtualCheap *m_pNullHmdLatest;
-	
-	bool m_bEnableNullDriver;
-};
-
 ServerDriver_VirtualCheap g_serverDriverNull;
-
-
-EVRInitError ServerDriver_VirtualCheap::Init( vr::IVRDriverContext *pDriverContext )
-{
-	VR_INIT_SERVER_DRIVER_CONTEXT( pDriverContext );
-	InitDriverLog( vr::VRDriverLog() );
-
-    m_pNullHmdLatest = new DeviceDriver_VirtualCheap();
-	vr::VRServerDriverHost()->TrackedDeviceAdded( m_pNullHmdLatest->GetSerialNumber().c_str(), vr::TrackedDeviceClass_HMD, m_pNullHmdLatest );
-	return VRInitError_None;
-}
-
-void ServerDriver_VirtualCheap::Cleanup()
-{
-	CleanupDriverLog();
-	delete m_pNullHmdLatest;
-	m_pNullHmdLatest = NULL;
-}
-
-
-void ServerDriver_VirtualCheap::RunFrame()
-{
-	if ( m_pNullHmdLatest )
-	{
-		m_pNullHmdLatest->RunFrame();
-	}
-}
 
 //-----------------------------------------------------------------------------
 // Purpose:

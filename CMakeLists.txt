@@ -11,12 +11,6 @@ set(CMAKE_SHARED_MODULE_PREFIX "")
 add_library(driver_VirtualCheap
         MODULE
         src/driver_VirtualCheap.cpp
-        src/WatchdogDriver_VirtualCheap.cpp
-        src/WatchdogDriver_VirtualCheap.h
-        src/DeviceDriver_VirtualCheap.cpp
-        src/DeviceDriver_VirtualCheap.h
-        src/ServerDriver_VirtualCheap.cpp
-        src/ServerDriver_VirtualCheap.h
         src/driverlog.cpp
         src/driverlog.h
         )

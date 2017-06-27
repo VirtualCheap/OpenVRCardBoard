@@ -12,8 +12,8 @@ set(SOURCE_FILES
         src/watchdogdriver_virtualcheap.h
         src/devicedriver_virtualcheap.cpp
         src/devicedriver_virtualcheap.h
-        src/serverdriver_virtualcheap.cpp
-        src/serverdriver_virtualcheap.h
+        #src/serverdriver_virtualcheap.cpp
+        #src/serverdriver_virtualcheap.h
         src/driverlog.cpp
         src/driverlog.h
         )

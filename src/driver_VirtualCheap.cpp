@@ -3,10 +3,8 @@
 #include <openvr_driver.h>
 #include "driverlog.h"
 
-#include <vector>
 #include <string.h>
 #include <thread>
-#include <chrono>
 
 #if defined( _WINDOWS )
 #include <Windows.h>

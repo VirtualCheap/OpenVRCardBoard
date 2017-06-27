@@ -8,7 +8,6 @@ include_directories(openvr/headers/)
 
 set(SOURCE_FILES
         src/driver_VirtualCheap.cpp
-        src/driver_VirtualCheap.h
         src/WatchdogDriver_VirtualCheap.cpp
         src/WatchdogDriver_VirtualCheap.h
         src/DeviceDriver_VirtualCheap.cpp

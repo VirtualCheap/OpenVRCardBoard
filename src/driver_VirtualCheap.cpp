@@ -69,10 +69,10 @@ static const char * const k_pch_Sample_DisplayFrequency_Float = "displayFrequenc
 // Purpose:
 //-----------------------------------------------------------------------------
 
-class CWatchdogDriver_Sample : public IVRWatchdogProvider
+class CWatchdogDriver_VirtualCheap : public IVRWatchdogProvider
 {
 public:
-    CWatchdogDriver_Sample();
+    WatchdogDriver_VirtualCheap();
 
 	virtual EVRInitError Init( vr::IVRDriverContext *pDriverContext ) ;
 	virtual void Cleanup() ;
@@ -81,12 +81,12 @@ private:
 	std::thread *m_pWatchdogThread;
 };
 
-CWatchdogDriver_Sample::CWatchdogDriver_Sample()
+WatchdogDriver_VirtualCheap::WatchdogDriver_VirtualCheap()
 {
     m_pWatchdogThread = nullptr;
 }
 
-CWatchdogDriver_Sample g_watchdogDriverNull;
+WatchdogDriver_VirtualCheap g_watchdogDriverNull;
 
 
 bool g_bExiting = false;
@@ -111,7 +111,7 @@ void WatchdogThreadFunction(  )
 	}
 }
 
-EVRInitError CWatchdogDriver_Sample::Init( vr::IVRDriverContext *pDriverContext )
+EVRInitError WatchdogDriver_VirtualCheap::Init( vr::IVRDriverContext *pDriverContext )
 {
 	VR_INIT_WATCHDOG_DRIVER_CONTEXT( pDriverContext );
 	InitDriverLog( vr::VRDriverLog() );
@@ -131,7 +131,7 @@ EVRInitError CWatchdogDriver_Sample::Init( vr::IVRDriverContext *pDriverContext 
 }
 
 
-void CWatchdogDriver_Sample::Cleanup()
+void WatchdogDriver_VirtualCheap::Cleanup()
 {
 	g_bExiting = true;
 	if ( m_pWatchdogThread )
@@ -148,10 +148,10 @@ void CWatchdogDriver_Sample::Cleanup()
 //-----------------------------------------------------------------------------
 // Purpose:
 //-----------------------------------------------------------------------------
-class CSampleDeviceDriver : public vr::ITrackedDeviceServerDriver, public vr::IVRDisplayComponent
+class DeviceDriver_VirtualCheap : public vr::ITrackedDeviceServerDriver, public vr::IVRDisplayComponent
 {
 public:
-	CSampleDeviceDriver(  )
+    DeviceDriver_VirtualCheap(  )
 	{
 		m_unObjectId = vr::k_unTrackedDeviceIndexInvalid;
 		m_ulPropertyContainer = vr::k_ulInvalidPropertyContainer;
@@ -184,7 +184,7 @@ public:
 		DriverLog( "driver_null: IPD: %f\n", m_flIPD );
 	}
 
-	virtual ~CSampleDeviceDriver()
+    virtual ~DeviceDriver_VirtualCheap()
 	{
 	}
 
@@ -236,14 +236,14 @@ public:
 		{
 			// Setup properties directly in code.
 			// Path values are of the form {drivername}\icons\some_icon_filename.png
-			vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceOff_String, "{sample}/icons/headset_sample_status_off.png" );
-			vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceSearching_String, "{sample}/icons/headset_sample_status_searching.gif" );
-			vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceSearchingAlert_String, "{sample}/icons/headset_sample_status_searching_alert.gif" );
-			vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceReady_String, "{sample}/icons/headset_sample_status_ready.png" );
-			vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceReadyAlert_String, "{sample}/icons/headset_sample_status_ready_alert.png" );
-			vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceNotReady_String, "{sample}/icons/headset_sample_status_error.png" );
-			vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceStandby_String, "{sample}/icons/headset_sample_status_standby.png" );
-			vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceAlertLow_String, "{sample}/icons/headset_sample_status_ready_low.png" );
+            vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceOff_String, "{icon}/icons/headset_sample_status_off.png" );
+            vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceSearching_String, "{icon}/icons/headset_sample_status_searching.gif" );
+            vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceSearchingAlert_String, "{icon}/icons/headset_sample_status_searching_alert.gif" );
+            vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceReady_String, "{icon}/icons/headset_sample_status_ready.png" );
+            vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceReadyAlert_String, "{icon}/icons/headset_sample_status_ready_alert.png" );
+            vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceNotReady_String, "{icon}/icons/headset_sample_status_error.png" );
+            vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceStandby_String, "{icon}/icons/headset_sample_status_standby.png" );
+            vr::VRProperties()->SetStringProperty( m_ulPropertyContainer, vr::Prop_NamedIconPathDeviceAlertLow_String, "{icon}/icons/headset_sample_status_ready_low.png" );
 		}
 
 		return VRInitError_None;
@@ -389,10 +389,10 @@ private:
 //-----------------------------------------------------------------------------
 // Purpose:
 //-----------------------------------------------------------------------------
-class CServerDriver_Sample: public IServerTrackedDeviceProvider
+class ServerDriver_VirtualCheap: public IServerTrackedDeviceProvider
 {
 public:
-	CServerDriver_Sample()
+    ServerDriver_VirtualCheap()
 		: m_pNullHmdLatest( NULL )
 		, m_bEnableNullDriver( false )
 	{
@@ -407,25 +407,25 @@ public:
 	virtual void LeaveStandby()  {}
 
 private:
-	CSampleDeviceDriver *m_pNullHmdLatest;
+    DeviceDriver_VirtualCheap *m_pNullHmdLatest;
 	
 	bool m_bEnableNullDriver;
 };
 
-CServerDriver_Sample g_serverDriverNull;
+ServerDriver_VirtualCheap g_serverDriverNull;
 
 
-EVRInitError CServerDriver_Sample::Init( vr::IVRDriverContext *pDriverContext )
+EVRInitError ServerDriver_VirtualCheap::Init( vr::IVRDriverContext *pDriverContext )
 {
 	VR_INIT_SERVER_DRIVER_CONTEXT( pDriverContext );
 	InitDriverLog( vr::VRDriverLog() );
 
-	m_pNullHmdLatest = new CSampleDeviceDriver();
+    m_pNullHmdLatest = new DeviceDriver_VirtualCheap();
 	vr::VRServerDriverHost()->TrackedDeviceAdded( m_pNullHmdLatest->GetSerialNumber().c_str(), vr::TrackedDeviceClass_HMD, m_pNullHmdLatest );
 	return VRInitError_None;
 }
 
-void CServerDriver_Sample::Cleanup() 
+void ServerDriver_VirtualCheap::Cleanup()
 {
 	CleanupDriverLog();
 	delete m_pNullHmdLatest;
@@ -433,7 +433,7 @@ void CServerDriver_Sample::Cleanup()
 }
 
 
-void CServerDriver_Sample::RunFrame()
+void ServerDriver_VirtualCheap::RunFrame()
 {
 	if ( m_pNullHmdLatest )
 	{

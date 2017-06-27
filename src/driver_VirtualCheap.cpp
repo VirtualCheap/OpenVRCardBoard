@@ -3,10 +3,8 @@
 #include <openvr_driver.h>
 #include "driverlog.h"
 
-#include <vector>
 #include <string.h>
 #include <thread>
-#include <chrono>
 
 #if defined( _WINDOWS )
 #include <Windows.h>
@@ -69,7 +67,7 @@ static const char * const k_pch_Sample_DisplayFrequency_Float = "displayFrequenc
 // Purpose:
 //-----------------------------------------------------------------------------
 
-class CWatchdogDriver_VirtualCheap : public IVRWatchdogProvider
+class WatchdogDriver_VirtualCheap : public IVRWatchdogProvider
 {
 public:
     WatchdogDriver_VirtualCheap();

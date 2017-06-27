@@ -72,10 +72,7 @@ static const char * const k_pch_Sample_DisplayFrequency_Float = "displayFrequenc
 class CWatchdogDriver_Sample : public IVRWatchdogProvider
 {
 public:
-	CWatchdogDriver_Sample()
-	{
-		m_pWatchdogThread = nullptr;
-	}
+    CWatchdogDriver_Sample();
 
 	virtual EVRInitError Init( vr::IVRDriverContext *pDriverContext ) ;
 	virtual void Cleanup() ;
@@ -83,6 +80,11 @@ public:
 private:
 	std::thread *m_pWatchdogThread;
 };
+
+CWatchdogDriver_Sample::CWatchdogDriver_Sample()
+{
+    m_pWatchdogThread = nullptr;
+}
 
 CWatchdogDriver_Sample g_watchdogDriverNull;
 

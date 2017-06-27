@@ -1,5 +1,20 @@
 #include "driver_VirtualCheap.h"
 
+#include <openvr_driver.h>
+
+#include "WatchdogDriver_VirtualCheap.h"
+#include "ServerDriver_VirtualCheap.h"
+
+#if defined( _WINDOWS )
+#include <Windows.h>
+#endif
+
+using namespace vr;
+
+WatchdogDriver_VirtualCheap g_watchdogDriverVirtualCheap;
+ServerDriver_VirtualCheap g_serverDriverNull;
+
+
 #if defined(_WIN32)
 #define strcasecmp stricmp
 #define HMD_DLL_EXPORT extern "C" __declspec( dllexport )

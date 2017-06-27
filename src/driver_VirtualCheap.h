@@ -9,7 +9,6 @@
 
 using namespace vr;
 
-
 #if defined(_WIN32)
 #define strcasecmp stricmp
 #define HMD_DLL_EXPORT extern "C" __declspec( dllexport )
@@ -25,7 +24,7 @@ using namespace vr;
 #define DRIVER_VIRTUALCHEAP_H
 WatchdogDriver_VirtualCheap g_watchdogDriverVirtualCheap;
 ServerDriver_VirtualCheap g_serverDriverNull;
-
+HMD_DLL_EXPORT void *HmdDriverFactory( const char *pInterfaceName, int *pReturnCode );
 
 
 #endif // DRIVER_VIRTUALCHEAP_H

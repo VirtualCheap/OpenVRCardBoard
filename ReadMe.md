@@ -9,6 +9,7 @@ git submodule update --init --recursive --remote
 ```
 #### Folder layout:
 - steamapps/common/SteamVR/drivers/VirtualCheap:
+  - driver.vrdrivermanifest
   - bin
     - linux64 (32 if 32 bit)
       - driver_VirtualCheap.so (compiled file)

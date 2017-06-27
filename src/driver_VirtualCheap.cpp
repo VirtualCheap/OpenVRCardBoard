@@ -74,38 +74,7 @@ WatchdogDriver_VirtualCheap g_watchdogDriverNull;
 class DeviceDriver_VirtualCheap : public vr::ITrackedDeviceServerDriver, public vr::IVRDisplayComponent
 {
 public:
-    DeviceDriver_VirtualCheap(  )
-	{
-		m_unObjectId = vr::k_unTrackedDeviceIndexInvalid;
-		m_ulPropertyContainer = vr::k_ulInvalidPropertyContainer;
-
-		DriverLog( "Using settings values\n" );
-		m_flIPD = vr::VRSettings()->GetFloat( k_pch_SteamVR_Section, k_pch_SteamVR_IPD_Float );
-
-		char buf[1024];
-		vr::VRSettings()->GetString( k_pch_Sample_Section, k_pch_Sample_SerialNumber_String, buf, sizeof( buf ) );
-		m_sSerialNumber = buf;
-
-		vr::VRSettings()->GetString( k_pch_Sample_Section, k_pch_Sample_ModelNumber_String, buf, sizeof( buf ) );
-		m_sModelNumber = buf;
-
-		m_nWindowX = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_WindowX_Int32 );
-		m_nWindowY = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_WindowY_Int32 );
-		m_nWindowWidth = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_WindowWidth_Int32 );
-		m_nWindowHeight = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_WindowHeight_Int32 );
-		m_nRenderWidth = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_RenderWidth_Int32 );
-		m_nRenderHeight = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_RenderHeight_Int32 );
-		m_flSecondsFromVsyncToPhotons = vr::VRSettings()->GetFloat( k_pch_Sample_Section, k_pch_Sample_SecondsFromVsyncToPhotons_Float );
-		m_flDisplayFrequency = vr::VRSettings()->GetFloat( k_pch_Sample_Section, k_pch_Sample_DisplayFrequency_Float );
-
-		DriverLog( "driver_null: Serial Number: %s\n", m_sSerialNumber.c_str() );
-		DriverLog( "driver_null: Model Number: %s\n", m_sModelNumber.c_str() );
-		DriverLog( "driver_null: Window: %d %d %d %d\n", m_nWindowX, m_nWindowY, m_nWindowWidth, m_nWindowHeight );
-		DriverLog( "driver_null: Render Target: %d %d\n", m_nRenderWidth, m_nRenderHeight );
-		DriverLog( "driver_null: Seconds from Vsync to Photons: %f\n", m_flSecondsFromVsyncToPhotons );
-		DriverLog( "driver_null: Display Frequency: %f\n", m_flDisplayFrequency );
-		DriverLog( "driver_null: IPD: %f\n", m_flIPD );
-	}
+    DeviceDriver_VirtualCheap();
 
     virtual ~DeviceDriver_VirtualCheap()
 	{
@@ -181,16 +150,7 @@ public:
 	{
 	}
 
-	void *GetComponent( const char *pchComponentNameAndVersion )
-	{
-        if ( !strcasecmp( pchComponentNameAndVersion, vr::IVRDisplayComponent_Version ) )
-		{
-			return (vr::IVRDisplayComponent*)this;
-		}
-
-		// override this to add a component to a driver
-		return NULL;
-	}
+    void *GetComponent( const char *pchComponentNameAndVersion );
 
 	virtual void PowerOff() 
 	{
@@ -278,18 +238,9 @@ public:
 	}
 	
 
-	void RunFrame()
-	{
-		// In a real driver, this should happen from some pose tracking thread.
-		// The RunFrame interval is unspecified and can be very irregular if some other
-		// driver blocks it for some periodic task.
-		if ( m_unObjectId != vr::k_unTrackedDeviceIndexInvalid )
-		{
-			vr::VRServerDriverHost()->TrackedDevicePoseUpdated( m_unObjectId, GetPose(), sizeof( DriverPose_t ) );
-		}
-	}
+    void RunFrame();
 
-	std::string GetSerialNumber() const { return m_sSerialNumber; }
+    std::string GetSerialNumber() const;
 
 private:
 	vr::TrackedDeviceIndex_t m_unObjectId;
@@ -308,6 +259,62 @@ private:
 	float m_flDisplayFrequency;
 	float m_flIPD;
 };
+
+DeviceDriver_VirtualCheap::DeviceDriver_VirtualCheap(  )
+{
+    m_unObjectId = vr::k_unTrackedDeviceIndexInvalid;
+    m_ulPropertyContainer = vr::k_ulInvalidPropertyContainer;
+
+    DriverLog( "Using settings values\n" );
+    m_flIPD = vr::VRSettings()->GetFloat( k_pch_SteamVR_Section, k_pch_SteamVR_IPD_Float );
+
+    char buf[1024];
+    vr::VRSettings()->GetString( k_pch_Sample_Section, k_pch_Sample_SerialNumber_String, buf, sizeof( buf ) );
+    m_sSerialNumber = buf;
+
+    vr::VRSettings()->GetString( k_pch_Sample_Section, k_pch_Sample_ModelNumber_String, buf, sizeof( buf ) );
+    m_sModelNumber = buf;
+
+    m_nWindowX = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_WindowX_Int32 );
+    m_nWindowY = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_WindowY_Int32 );
+    m_nWindowWidth = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_WindowWidth_Int32 );
+    m_nWindowHeight = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_WindowHeight_Int32 );
+    m_nRenderWidth = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_RenderWidth_Int32 );
+    m_nRenderHeight = vr::VRSettings()->GetInt32( k_pch_Sample_Section, k_pch_Sample_RenderHeight_Int32 );
+    m_flSecondsFromVsyncToPhotons = vr::VRSettings()->GetFloat( k_pch_Sample_Section, k_pch_Sample_SecondsFromVsyncToPhotons_Float );
+    m_flDisplayFrequency = vr::VRSettings()->GetFloat( k_pch_Sample_Section, k_pch_Sample_DisplayFrequency_Float );
+
+    DriverLog( "driver_null: Serial Number: %s\n", m_sSerialNumber.c_str() );
+    DriverLog( "driver_null: Model Number: %s\n", m_sModelNumber.c_str() );
+    DriverLog( "driver_null: Window: %d %d %d %d\n", m_nWindowX, m_nWindowY, m_nWindowWidth, m_nWindowHeight );
+    DriverLog( "driver_null: Render Target: %d %d\n", m_nRenderWidth, m_nRenderHeight );
+    DriverLog( "driver_null: Seconds from Vsync to Photons: %f\n", m_flSecondsFromVsyncToPhotons );
+    DriverLog( "driver_null: Display Frequency: %f\n", m_flDisplayFrequency );
+    DriverLog( "driver_null: IPD: %f\n", m_flIPD );
+}
+
+void *DeviceDriver_VirtualCheap::GetComponent( const char *pchComponentNameAndVersion )
+{
+    if ( !strcasecmp( pchComponentNameAndVersion, vr::IVRDisplayComponent_Version ) )
+    {
+        return (vr::IVRDisplayComponent*)this;
+    }
+
+    // override this to add a component to a driver
+    return NULL;
+}
+void DeviceDriver_VirtualCheap::RunFrame()
+{
+    // In a real driver, this should happen from some pose tracking thread.
+    // The RunFrame interval is unspecified and can be very irregular if some other
+    // driver blocks it for some periodic task.
+    if ( m_unObjectId != vr::k_unTrackedDeviceIndexInvalid )
+    {
+        vr::VRServerDriverHost()->TrackedDevicePoseUpdated( m_unObjectId, GetPose(), sizeof( DriverPose_t ) );
+    }
+}
+
+std::string DeviceDriver_VirtualCheap::GetSerialNumber() const { return m_sSerialNumber; }
 
 //-----------------------------------------------------------------------------
 // Purpose:

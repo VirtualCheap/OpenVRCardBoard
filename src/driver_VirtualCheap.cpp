@@ -8,7 +8,7 @@
 
 #include "watchdogdriver_virtualcheap.h"
 #include "devicedriver_virtualcheap.h"
-
+#include "socket.h"
 #if defined( _WINDOWS )
 #include <Windows.h>
 #endif
@@ -71,7 +71,9 @@ EVRInitError ServerDriver_VirtualCheap::Init( vr::IVRDriverContext *pDriverConte
 {
     VR_INIT_SERVER_DRIVER_CONTEXT( pDriverContext );
     InitDriverLog( vr::VRDriverLog() );
-
+    
+    std::thread first(socketserv);
+    
     m_pNullHmdLatest = new DeviceDriver_VirtualCheap();
     vr::VRServerDriverHost()->TrackedDeviceAdded( m_pNullHmdLatest->GetSerialNumber().c_str(), vr::TrackedDeviceClass_HMD, m_pNullHmdLatest );
     return VRInitError_None;

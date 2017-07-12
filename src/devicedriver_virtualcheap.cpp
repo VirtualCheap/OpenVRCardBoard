@@ -1,5 +1,5 @@
 #include "devicedriver_virtualcheap.h"
-
+#include "socket.h"
 inline HmdQuaternion_t HmdQuaternion_Init( double w, double x, double y, double z )
 {
     HmdQuaternion_t quat;
@@ -61,6 +61,7 @@ DeviceDriver_VirtualCheap::~DeviceDriver_VirtualCheap()
 {
 }
 
+vr::TrackedDeviceIndex_t ObjectId;
 
 EVRInitError DeviceDriver_VirtualCheap::Activate( vr::TrackedDeviceIndex_t unObjectId )
 {
@@ -210,22 +211,26 @@ DriverPose_t DeviceDriver_VirtualCheap::GetPose()
     pose.result = TrackingResult_Running_OK;
     pose.deviceIsConnected = true;
 
-    pose.qWorldFromDriverRotation = HmdQuaternion_Init( 1, 0, 0, 0 );
-    pose.qDriverFromHeadRotation = HmdQuaternion_Init( 1, 0, 0, 0 );
+    pose.qWorldFromDriverRotation = HmdQuaternion_Init( 1, xyz[0], xyz[1], xyz[2] );
+    pose.qDriverFromHeadRotation = HmdQuaternion_Init( 1, xyz[0], xyz[1], xyz[2] );
 
 
     return pose;
 }
+
 
 void DeviceDriver_VirtualCheap::RunFrame()
 {
     // In a real driver, this should happen from some pose tracking thread.
     // The RunFrame interval is unspecified and can be very irregular if some other
     // driver blocks it for some periodic task.
-    if ( m_unObjectId != vr::k_unTrackedDeviceIndexInvalid )
-    {
-        vr::VRServerDriverHost()->TrackedDevicePoseUpdated( m_unObjectId, GetPose(), sizeof( DriverPose_t ) );
-    }
+    //socketdata(somestring);
+    vr::VRServerDriverHost()->TrackedDevicePoseUpdated( m_unObjectId, GetPose(), sizeof( DriverPose_t ) );
+
 }
+
+
+
+
 
 std::string DeviceDriver_VirtualCheap::GetSerialNumber() const { return m_sSerialNumber; }

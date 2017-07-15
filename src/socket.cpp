@@ -4,12 +4,20 @@
 #include <string.h>
 #include <sstream>
 #include "socket.h"
-float xyz[3];
-xyz[0] = 0;
-xyz[1] = 0;
-xyz[2] = 0;
+
+typedef struct{
+    float x,y,z;
+} coord;
+
+coord xyz;
+
 
 int socketserv(){
+    
+      xyz.x = 0.0;
+      xyz.y = 0.0;    
+     xyz.z = 0.0;
+     
      int BUFLEN = 5000;
      int sockfd, newsockfd, portno;
      socklen_t clilen;
@@ -53,8 +61,8 @@ int socketserv(){
          if (strcmp("", buffer) != 0){
              std::string bufferStr(buffer); //Convert to C++ Strings
              std::stringstream ss(bufferStr); //Create a String Stream
-             ss >> xyz[0] >> xyz[1] >> xyz[2]; //Convert the string to float's             
-             std::cout << "X: " << xyz[0] << " Y: " << xyz[1] << " Z: " << xyz[2] << std::endl;
+             ss >> xyz.x >> xyz.y >> xyz.z; //Convert the string to float's             
+             std::cout << "X: " << xyz.x << " Y: " << xyz.y << " Z: " << xyz.z << std::endl;
          }
     }
 }

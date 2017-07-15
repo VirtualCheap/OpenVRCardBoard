@@ -211,8 +211,8 @@ DriverPose_t DeviceDriver_VirtualCheap::GetPose()
     pose.result = TrackingResult_Running_OK;
     pose.deviceIsConnected = true;
 
-    pose.qWorldFromDriverRotation = HmdQuaternion_Init( 1, xyz[0], xyz[1], xyz[2] );
-    pose.qDriverFromHeadRotation = HmdQuaternion_Init( 1, xyz[0], xyz[1], xyz[2] );
+    pose.qWorldFromDriverRotation = HmdQuaternion_Init( 1, xyz.x, xyz.y, xyz.z );
+    pose.qDriverFromHeadRotation = HmdQuaternion_Init( 1, xyz.x, xyz.y, xyz.z );
 
 
     return pose;

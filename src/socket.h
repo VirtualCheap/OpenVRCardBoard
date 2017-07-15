@@ -13,13 +13,18 @@
 
 #ifndef SOCKET_H
 #define SOCKET_H
-
+#include <unistd.h>
+#include <netinet/in.h>
+#include <iostream>
+#include <string.h>
+#include <sstream>
 #ifdef __cplusplus
 extern "C" {
 
 #endif
 
-    extern float xyz[3];
+    typedef struct coord;
+    coord xyz;
     int socketserv();
 
 

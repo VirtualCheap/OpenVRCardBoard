@@ -1,37 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   socket.h
- * Author: alexandre
- *
- * Created on 3 de Julho de 2017, 22:58
- */
-
-#ifndef SOCKET_H
-#define SOCKET_H
+#include <mutex>
 #include <unistd.h>
 #include <netinet/in.h>
 #include <iostream>
 #include <string.h>
 #include <sstream>
-#ifdef __cplusplus
-extern "C" {
+#include <thread>
 
-#endif
+#ifndef SOCKET_H
+#define SOCKET_H
+class TcpServer{
+    public:
+        TcpServer(char* port);
+        float* getChange();
+        bool running;
+    private:
+        std::thread t1;
+        float xyz[3];
+        std::mutex xyzMutex;
+        const int BUFLEN = 5000;
+        int sockfd, newsockfd, portno;
+        struct sockaddr_in serv_addr, cli_addr;
+        void thread();
 
-    typedef struct coord;
-    coord xyz;
-    int socketserv();
-
-
-
-#ifdef __cplusplus
-}
-#endif
-
+};
 #endif /* SOCKET_H */
 

@@ -1,6 +1,6 @@
 #include "socket.h"
 
-TcpServer::TcpServer(char* port){
+void TcpServer::init(char* port){
     int one = 1;
     running = true;
     sockfd = socket(AF_INET, SOCK_STREAM, 0); // Create socket
@@ -21,7 +21,7 @@ TcpServer::TcpServer(char* port){
        // TO-DO Make error react diffrently
        exit(1);
     }
-
+    t1 = std::thread(thread);
 }
 
 void TcpServer::thread(){

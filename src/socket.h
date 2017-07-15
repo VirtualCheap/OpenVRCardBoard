@@ -10,17 +10,17 @@
 #define SOCKET_H
 class TcpServer{
     public:
-        TcpServer(char* port);
-        float* getChange();
-        bool running;
+        static void init(char* port);
+        static float* getChange();
+        static bool running;
     private:
-        std::thread t1;
-        float xyz[3];
-        std::mutex xyzMutex;
-        const int BUFLEN = 5000;
-        int sockfd, newsockfd, portno;
-        struct sockaddr_in serv_addr, cli_addr;
-        void thread();
+        static std::thread t1;
+        static float xyz[3];
+        static std::mutex xyzMutex;
+        static const int BUFLEN = 5000;
+        static int sockfd, newsockfd, portno;
+        static struct sockaddr_in serv_addr, cli_addr;
+        static void thread();
 
 };
 #endif /* SOCKET_H */

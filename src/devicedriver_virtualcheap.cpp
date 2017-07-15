@@ -1,5 +1,5 @@
 #include "devicedriver_virtualcheap.h"
-#include "socket.h"
+
 inline HmdQuaternion_t HmdQuaternion_Init( double w, double x, double y, double z )
 {
     HmdQuaternion_t quat;
@@ -121,6 +121,7 @@ EVRInitError DeviceDriver_VirtualCheap::Activate( vr::TrackedDeviceIndex_t unObj
     }
 
     return VRInitError_None;
+    tcpServer->init((char*)"5000");
 }
 
 void DeviceDriver_VirtualCheap::Deactivate()
@@ -210,9 +211,9 @@ DriverPose_t DeviceDriver_VirtualCheap::GetPose()
     pose.poseIsValid = true;
     pose.result = TrackingResult_Running_OK;
     pose.deviceIsConnected = true;
-
-    pose.qWorldFromDriverRotation = HmdQuaternion_Init( 1, xyz.x, xyz.y, xyz.z );
-    pose.qDriverFromHeadRotation = HmdQuaternion_Init( 1, xyz.x, xyz.y, xyz.z );
+    float* xyz = tcpServer->getChange();
+    pose.qWorldFromDriverRotation = HmdQuaternion_Init( 1, xyz[0], xyz[1], xyz[2] );
+    pose.qDriverFromHeadRotation = HmdQuaternion_Init( 1, xyz[0], xyz[1], xyz[2] );
 
 
     return pose;

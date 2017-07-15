@@ -70,10 +70,7 @@ private:
 EVRInitError ServerDriver_VirtualCheap::Init( vr::IVRDriverContext *pDriverContext )
 {
     VR_INIT_SERVER_DRIVER_CONTEXT( pDriverContext );
-    InitDriverLog( vr::VRDriverLog() );
-    
-    std::thread first(socketserv);
-    
+    InitDriverLog( vr::VRDriverLog() );    
     m_pNullHmdLatest = new DeviceDriver_VirtualCheap();
     vr::VRServerDriverHost()->TrackedDeviceAdded( m_pNullHmdLatest->GetSerialNumber().c_str(), vr::TrackedDeviceClass_HMD, m_pNullHmdLatest );
     return VRInitError_None;

@@ -1,6 +1,7 @@
 #include <openvr_driver.h>
 #include "driverlog.h"
 #include <string.h>
+#include "socket.h"
 
 using namespace vr;
 
@@ -44,6 +45,8 @@ public:
     std::string GetSerialNumber() const;
 
 private:
+    TcpServer* tcpServer;
+
     vr::TrackedDeviceIndex_t m_unObjectId;
     vr::PropertyContainerHandle_t m_ulPropertyContainer;
 

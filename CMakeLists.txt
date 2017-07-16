@@ -25,6 +25,9 @@ add_library("driver_VirtualCheap" SHARED ${SOURCE_FILES})
 set_target_properties(driver_VirtualCheap PROPERTIES
          LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/VirtualCheap/bin/linux64/)
 
+find_package( Threads REQUIRED )
+target_link_libraries( "driver_VirtualCheap" ${CMAKE_THREAD_LIBS_INIT} )
+
 add_custom_command(TARGET driver_VirtualCheap POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
                 ${CMAKE_SOURCE_DIR}/resources/

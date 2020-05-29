@@ -1,0 +1,10 @@
+{
+    "alwaysActivate": false,
+    "name": "virtual_cheap",
+    "directory": "bin/",
+    "resourceOnly": false,
+    "hmd_presence":[
+        "*.*"
+    ]
+}
+

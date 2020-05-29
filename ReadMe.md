@@ -7,7 +7,7 @@ Or if you already cloned it with out the `recursive` argument
 ```
 git submodule update --init --recursive --remote
 ```
-#### Folder layout:
+#### Folder layout: (OUTDATED)
 - steamapps/common/SteamVR/drivers/VirtualCheap:
   - driver.vrdrivermanifest
   - bin

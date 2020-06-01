@@ -6,14 +6,14 @@
 namespace VirtualCheap {
     class Logger {
     private:
-        static vr::IVRDriverLog* driverLog;
+        static vr::IVRDriverLog* s_driverLog;
 
     public:
-        static bool InitDriverLog(vr::IVRDriverLog *pDriverLog);
+        static bool InitDriverLog(vr::IVRDriverLog *p_driverLog);
         static void CleanupDriverLog();
 
-        static void DriverLog(const char *format, ...);
-        static void DebugDriverLog(const char *format, ...);
+        static void DriverLog(const char *p_msgFormat, ...);
+        static void DebugDriverLog(const char *p_msgFormat, ...);
     };
 }
 

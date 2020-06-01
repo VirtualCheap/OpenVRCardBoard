@@ -6,8 +6,8 @@ include_directories(openvr/headers/)
 set(SOURCE_FILES
     src/main.cpp
 
-    src/virtualcheap_logger.cpp
-    src/virtualcheap_logger.h
+    src/virtualcheap/logger.cpp
+    src/virtualcheap/logger.h
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")

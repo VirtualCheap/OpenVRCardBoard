@@ -1,5 +1,5 @@
 #include <openvr_driver.h>
-#include "virtualcheap_logger.h"
+#include "virtualcheap/logger.h"
 
 
 /*

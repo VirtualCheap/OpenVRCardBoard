@@ -1,9 +1,11 @@
-#include "virtualcheap_logger.h"
+#include "logger.h"
 
 #include <stdio.h>
 #include <stdarg.h>
 
-bool VirtualCheapLogger::InitDriverLog( vr::IVRDriverLog *pDriverLog ){
+using namespace VirtualCheap;
+
+bool Logger::InitDriverLog( vr::IVRDriverLog *pDriverLog ){
     if(driverLog){
 		return false;
     }
@@ -12,11 +14,11 @@ bool VirtualCheapLogger::InitDriverLog( vr::IVRDriverLog *pDriverLog ){
     return driverLog != nullptr;
 }
 
-void VirtualCheapLogger::CleanupDriverLog(){
+void Logger::CleanupDriverLog(){
     driverLog = nullptr;
 }
 
-void VirtualCheapLogger::DriverLog(const char *pMsgFormat, ...){
+void Logger::DriverLog(const char *pMsgFormat, ...){
     va_list args;
     va_start(args, pMsgFormat);
 
@@ -31,9 +33,9 @@ void VirtualCheapLogger::DriverLog(const char *pMsgFormat, ...){
 }
 
 
-void VirtualCheapLogger::DebugDriverLog(const char *pMsgFormat, ...){
+void Logger::DebugDriverLog(const char *pMsgFormat, ...){
 #ifndef NDEBUG
-    VirtualCheapLogger::DriverLog(pMsgFormat);
+    Logger::DriverLog(pMsgFormat);
 #endif
 }
 

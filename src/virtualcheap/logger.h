@@ -3,6 +3,7 @@
 
 #include <string>
 #include <openvr_driver.h>
+
 namespace VirtualCheap {
     class Logger {
     private:

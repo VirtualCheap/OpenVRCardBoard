@@ -6,8 +6,18 @@ include_directories(openvr/headers/)
 set(SOURCE_FILES
     src/main.cpp
 
+    src/virtualcheap/controllerdriver.cpp
+    src/virtualcheap/controllerdriver.h
+    src/virtualcheap/devicedriver.cpp
+    src/virtualcheap/devicedriver.h
     src/virtualcheap/logger.cpp
     src/virtualcheap/logger.h
+    src/virtualcheap/serverdriver.cpp
+    src/virtualcheap/serverdriver.h
+    src/virtualcheap/utils.cpp
+    src/virtualcheap/utils.h
+    src/virtualcheap/watchdogdriver.cpp
+    src/virtualcheap/watchdogdriver.h
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")

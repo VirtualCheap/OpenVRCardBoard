@@ -21,16 +21,6 @@
 			"Prop_NamedIconPathDeviceNotReady_String" : "Prop_NamedIconPathDeviceOff_String",
 			"Prop_NamedIconPathDeviceStandby_String" : "Prop_NamedIconPathDeviceOff_String",
 			"Prop_NamedIconPathDeviceAlertLow_String" : "Prop_NamedIconPathDeviceOff_String"
-		},
-	
-		"Model-v1.0" : {
-			"Alias" : "Model-v Defaults",
-			"Prop_NamedIconPathDeviceAlertLow_String" : "{icon}/icons/headset_model1_alertlow.png"
-		},
-	
-		"Model-v2.0" : {
-			"Alias" : "Model-v1.0",
-			"Prop_NamedIconPathDeviceAlertLow_String" : "{icon}/icons/headset_model2_alertlow.png"
 		}
     }	    
 }
